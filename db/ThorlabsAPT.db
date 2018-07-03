@@ -1,0 +1,156 @@
+
+record (longin, "$(P)$(R)NumEvents") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_EVENTS")
+}
+record (longin, "$(P)$(R)LastEvent") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))LAST_EVENT")
+}
+record (stringin, "$(P)$(R)LastEventNotes") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynOctetRead")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))LAST_EVENT_NOTES")
+}
+record (longin, "$(P)$(R)SerialNumber") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))SERIAL_NUMBER")
+    field (PINI, "YES")
+}
+record (stringin, "$(P)$(R)ModelNumber") {
+    field (DTYP, "asynOctetRead")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MODEL_NUMBER")
+    field (PINI, "YES")
+}
+record (longin, "$(P)$(R)FirmwareVersionMajor") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIRMWARE_VERSION_MAJOR")
+    field (PINI, "YES")
+}
+record (longin, "$(P)$(R)FirmwareVersionInterim") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIRMWARE_VERSION_INTERIM")
+    field (PINI, "YES")
+}
+record (longin, "$(P)$(R)FirmwareVersionMinor") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIRMWARE_VERSION_MINOR")
+    field (PINI, "YES")
+}
+record (stringin, "$(P)$(R)Notes") {
+    field (DTYP, "asynOctetRead")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))NOTES")
+    field (PINI, "YES")
+}
+record (longin, "$(P)$(R)HardwareVersion") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))HARDWARE_VERSION")
+    field (PINI, "YES")
+}
+record (longin, "$(P)$(R)ModState") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MOD_STATE")
+    field (PINI, "YES")
+}
+record (longin, "$(P)$(R)NumberChannels") {
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUMBER_CHANNELS")
+    field (PINI, "YES")
+}
+
+record (bo, "$(P)$(R)Ch1:Enabled") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CH_ENABLED")
+    field (ZNAM, "Disabled")
+    field (ONAM, "Enabled")
+}
+record (ao, "$(P)$(R)Ch1:MinVelocity") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MIN_VELOCITY")
+    field (ASLO, "$(VSCALE)")
+    field (EGU, "$(UNIT)/s")
+}
+record (ao, "$(P)$(R)Ch1:Acceleration") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ACCELERATION")
+    field (ASLO, "$(ASCALE)")
+    field (EGU, "$(UNIT)/s/s")
+}
+record (ao, "$(P)$(R)Ch1:MaxVelocity") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_VELOCITY")
+    field (ASLO, "$(VSCALE)")
+    field (EGU, "$(UNIT)/s")
+}
+record (ao, "$(P)$(R)Ch1:Backlash") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))BACKLASH")
+    field (ASLO, "$(LSCALE)")
+    field (EGU, "$(UNIT)")
+}
+record (ai, "$(P)$(R)Ch1:CurrentPosition") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CURRENT_POSITION")
+    field (ASLO, "$(LSCALE)")
+    field (EGU, "$(UNIT)")
+}
+record (ai, "$(P)$(R)Ch1:CurrentVelocity") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynInt32")
+    field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CURRENT_VELOCITY")
+    field (ASLO, "$(VSCALE)")
+    field (EGU, "$(UNIT)")
+}
+record (bi, "$(P)$(R)Ch1:StatusForwardLimit") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x00000001,$(TIMEOUT))STATUS_BITS")
+}
+record (bi, "$(P)$(R)Ch1:StatusReverseLimit") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x00000002,$(TIMEOUT))STATUS_BITS")
+}
+record (bi, "$(P)$(R)Ch1:StatusMovingForward") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x00000010,$(TIMEOUT))STATUS_BITS")
+}
+record (bi, "$(P)$(R)Ch1:StatusMovingReverse") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x00000020,$(TIMEOUT))STATUS_BITS")
+}
+record (bi, "$(P)$(R)Ch1:StatusHoming") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x00000200,$(TIMEOUT))STATUS_BITS")
+}
+record (bi, "$(P)$(R)Ch1:StatusHomed") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x00000400,$(TIMEOUT))STATUS_BITS")
+}
+record (bi, "$(P)$(R)Ch1:StatusEnabled") {
+    field (SCAN, "I/O Intr")
+    field (DTYP, "asynUInt32Digital")
+    field (INP, "@asynMask($(PORT),$(ADDR),0x80000000,$(TIMEOUT))STATUS_BITS")
+}
+
+record (ao, "$(P)$(R)Ch1:MoveAbsolute") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MOVE_ABSOLUTE")
+    field (ASLO, "$(LSCALE)")
+    field (EGU, "$(UNIT)")
+}
+record (bo, "$(P)$(R)Ch1:MoveStop") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MOVE_STOP")
+}
+record (bo, "$(P)$(R)Ch1:MoveHome") {
+    field (DTYP, "asynInt32")
+    field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MOVE_HOME")
+}
