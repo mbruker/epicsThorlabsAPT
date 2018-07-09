@@ -31,6 +31,9 @@
 #define MGMSG_MOT_REQ_GENMOVEPARAMS     0x043B
 #define MGMSG_MOT_GET_GENMOVEPARAMS     0x043C
 #define MGMSG_MOT_MOVE_HOME             0x0443
+#define MGMSG_MOT_SET_MOVEABSPARAMS	0x0450
+#define MGMSG_MOT_REQ_MOVEABSPARAMS	0x0451
+#define MGMSG_MOT_GET_MOVEABSPARAMS	0x0452
 #define MGMSG_MOT_MOVE_ABSOLUTE         0x0453
 #define MGMSG_MOT_MOVE_STOP             0x0465
 #define MGMSG_MOT_REQ_DCSTATUSUPDATE    0x0490
@@ -149,6 +152,10 @@ ThorlabsAPTDriver::ThorlabsAPTDriver(const char *portName, const char *serialPor
 
     printf("ThorlabsAPT: model %s; fw ver %u.%u.%u; hw ver %u; %u channels\n", modelNumber, data[16], data[15], data[14], hardwareVersion, numberChannels);
 
+    createParam(P_MoveAbsolute_String, asynParamInt32, &P_MoveAbsolute);
+    createParam(P_MoveStop_String, asynParamInt32, &P_MoveStop);
+    createParam(P_MoveHome_String, asynParamInt32, &P_MoveHome);
+    
     // Channel 1: Get enabled state
     sendShortCommand(MGMSG_MOD_REQ_CHANENABLESTATE, 1, 0);
     status = waitForReply(MGMSG_MOD_GET_CHANENABLESTATE, (char **) &data, &dataLen);
@@ -187,6 +194,22 @@ ThorlabsAPTDriver::ThorlabsAPTDriver(const char *portName, const char *serialPor
     setIntegerParam(P_MaxVelocity, (data[13] << 24) | (data[12] << 16) | (data[11] << 8) | data[10]);
     free(data);
     
+    // Channel 1: Get destination of last absolute move command
+    sendShortCommand(MGMSG_MOT_REQ_MOVEABSPARAMS, 1, 0);
+    status = waitForReply(MGMSG_MOT_GET_MOVEABSPARAMS, (char **) &data, &dataLen);
+    if (status == asynTimeout) {
+        pasynManager->unlockPort(asynUserSerial);
+        printf("ThorlabsAPT: timeout waiting for message MGMSG_MOT_GET_MOVEABSPARAMS\n");
+        return;
+    }
+    if (dataLen != 6) {
+        pasynManager->unlockPort(asynUserSerial);
+        printf("ThorlabsAPT: malformed message MGMSG_MOT_GET_MOVEABSPARAMS\n");
+        return;
+    }
+    setIntegerParam(P_MoveAbsolute, (data[5] << 24) | (data[4] << 16) | (data[3] << 8) | data[2]);
+    free(data);
+
     // Channel 1: Get general move parameters (backlash)
     sendShortCommand(MGMSG_MOT_REQ_GENMOVEPARAMS, 1, 0);
     status = waitForReply(MGMSG_MOT_GET_GENMOVEPARAMS, (char **) &data, &dataLen);
@@ -210,10 +233,6 @@ ThorlabsAPTDriver::ThorlabsAPTDriver(const char *portName, const char *serialPor
     createParam(P_CurrentVelocity_String, asynParamInt32, &P_CurrentVelocity);
     createParam(P_StatusBits_String, asynParamUInt32Digital, &P_StatusBits);
     requestStatusUpdate();
-    
-    createParam(P_MoveAbsolute_String, asynParamInt32, &P_MoveAbsolute);
-    createParam(P_MoveStop_String, asynParamInt32, &P_MoveStop);
-    createParam(P_MoveHome_String, asynParamInt32, &P_MoveHome);
     
     status = (asynStatus) (epicsThreadCreate("ThorlabsAPTPollThread",
                                              epicsThreadPriorityMedium,
@@ -372,6 +391,10 @@ void ThorlabsAPTDriver::processUnsolicitedMessage(unsigned short int messageId, 
             callParamCallbacks();
             break;
         }
+        case MGMSG_MOT_MOVE_HOMED: {
+            setIntegerParam(P_MoveAbsolute, 0);
+            break;
+        }
         default: {
         }
     }
@@ -435,23 +458,80 @@ void ThorlabsAPTDriver::requestStatusUpdate()
     free(data);
 }
 
+asynStatus ThorlabsAPTDriver::setVelocityParams()
+{
+    unsigned char data[14];
+    uint32_t value;
+    
+    // channel id
+    data[0] = 1;
+    data[1] = 0;
+    
+    // min velocity
+    getIntegerParam(P_MinVelocity, (epicsInt32 *) &value);
+    data[2] = value;
+    data[3] = value >> 8;
+    data[4] = value >> 16;
+    data[5] = value >> 24;
+
+    // acceleration
+    getIntegerParam(P_Acceleration, (epicsInt32 *) &value);
+    data[6] = value;
+    data[7] = value >> 8;
+    data[8] = value >> 16;
+    data[9] = value >> 24;
+
+    // max velocity
+    getIntegerParam(P_MaxVelocity, (epicsInt32 *) &value);
+    data[10] = value;
+    data[11] = value >> 8;
+    data[12] = value >> 16;
+    data[13] = value >> 24;
+    
+    return sendLongCommand(MGMSG_MOT_SET_VELPARAMS, data, 14);
+}
+
 asynStatus ThorlabsAPTDriver::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
     int function = pasynUser->reason;
     
     if (function == P_MoveAbsolute) {
-    	unsigned char data[6];
-    	data[0] = 1;
-    	data[1] = 0;
-    	data[2] = value;
-    	data[3] = value >> 8;
-    	data[4] = value >> 16;
-    	data[5] = value >> 24;
-        return sendLongCommand(MGMSG_MOT_MOVE_ABSOLUTE, data, 6);
+        setIntegerParam(P_MoveAbsolute, value);
+        unsigned char data[6];
+        data[0] = 1;
+        data[1] = 0;
+        data[2] = value;
+        data[3] = value >> 8;
+        data[4] = value >> 16;
+        data[5] = value >> 24;
+        sendLongCommand(MGMSG_MOT_SET_MOVEABSPARAMS, data, 6);
+        return sendShortCommand(MGMSG_MOT_MOVE_ABSOLUTE);
     } else if (function == P_MoveStop) {
     	return sendShortCommand(MGMSG_MOT_MOVE_STOP, 1, 2);
     } else if (function == P_MoveHome) {
         return sendShortCommand(MGMSG_MOT_MOVE_HOME, 1, 0);
+    } else if (function == P_ChEnabled) {
+        setIntegerParam(P_ChEnabled, value);
+        return sendShortCommand(MGMSG_MOD_SET_CHANENABLESTATE, 1, value);
+    } else if (function == P_MinVelocity) {
+        setIntegerParam(P_MinVelocity, value);
+        return setVelocityParams();
+    } else if (function == P_Acceleration) {
+        setIntegerParam(P_Acceleration, value);
+        return setVelocityParams();
+    } else if (function == P_MaxVelocity) {
+        setIntegerParam(P_MaxVelocity, value);
+        return setVelocityParams();
+    } else if (function == P_Backlash) {
+        setIntegerParam(P_Backlash, value);
+        unsigned char data[6];
+        data[0] = 1;
+        data[1] = 0;
+        data[2] = value;
+        data[3] = value >> 8;
+        data[4] = value >> 16;
+        data[5] = value >> 24;
+        return sendLongCommand(MGMSG_MOT_SET_GENMOVEPARAMS, data, 6);
     } else
     	return asynPortDriver::writeInt32(pasynUser, value);
 }

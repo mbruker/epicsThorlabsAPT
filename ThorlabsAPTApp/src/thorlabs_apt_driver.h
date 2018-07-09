@@ -56,6 +56,7 @@ protected:
     asynStatus waitForReply(unsigned short int expectedReplyId, char **extraData = 0, size_t *extraDataLen = 0);
     
     void requestStatusUpdate();
+    asynStatus setVelocityParams();
     
     static const unsigned char deviceAddress = 0x50;
     
