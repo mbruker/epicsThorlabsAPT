@@ -71,24 +71,28 @@ record (ao, "$(P)$(R)Ch1:MinVelocity") {
     field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MIN_VELOCITY")
     field (ASLO, "$(VSCALE)")
     field (EGU, "$(UNIT)/s")
+    field (PREC, "3")
 }
 record (ao, "$(P)$(R)Ch1:Acceleration") {
     field (DTYP, "asynInt32")
     field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ACCELERATION")
     field (ASLO, "$(ASCALE)")
     field (EGU, "$(UNIT)/s/s")
+    field (PREC, "3")
 }
 record (ao, "$(P)$(R)Ch1:MaxVelocity") {
     field (DTYP, "asynInt32")
     field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_VELOCITY")
     field (ASLO, "$(VSCALE)")
     field (EGU, "$(UNIT)/s")
+    field (PREC, "3")
 }
 record (ao, "$(P)$(R)Ch1:Backlash") {
     field (DTYP, "asynInt32")
     field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))BACKLASH")
     field (ASLO, "$(LSCALE)")
     field (EGU, "$(UNIT)")
+    field (PREC, "5")
 }
 record (ai, "$(P)$(R)Ch1:CurrentPosition") {
     field (SCAN, "I/O Intr")
@@ -96,6 +100,7 @@ record (ai, "$(P)$(R)Ch1:CurrentPosition") {
     field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CURRENT_POSITION")
     field (ASLO, "$(LSCALE)")
     field (EGU, "$(UNIT)")
+    field (PREC, "2")
 }
 record (ai, "$(P)$(R)Ch1:CurrentVelocity") {
     field (SCAN, "I/O Intr")
@@ -103,6 +108,7 @@ record (ai, "$(P)$(R)Ch1:CurrentVelocity") {
     field (INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CURRENT_VELOCITY")
     field (ASLO, "$(VSCALE)")
     field (EGU, "$(UNIT)")
+    field (PREC, "2")
 }
 record (bi, "$(P)$(R)Ch1:StatusForwardLimit") {
     field (SCAN, "I/O Intr")
@@ -145,6 +151,7 @@ record (ao, "$(P)$(R)Ch1:MoveAbsolute") {
     field (OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))MOVE_ABSOLUTE")
     field (ASLO, "$(LSCALE)")
     field (EGU, "$(UNIT)")
+    field (PREC, 2)
 }
 record (bo, "$(P)$(R)Ch1:MoveStop") {
     field (DTYP, "asynInt32")

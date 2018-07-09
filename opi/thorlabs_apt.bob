@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<display version="2.0.0">
+  <name>Thorlabs APT motor $(P)$(R)</name>
+  <macros>
+    <P>test:</P>
+    <R>motor1:</R>
+  </macros>
+  <width>500</width>
+  <height>500</height>
+  <widget type="label" version="2.0.0">
+    <name>Label</name>
+    <class>TITLE</class>
+    <text>Thorlabs APT motor $(P)$(R)</text>
+    <width>550</width>
+    <height>31</height>
+    <font>
+      <font name="Header 1" family="Liberation Sans" style="BOLD" size="22.0">
+      </font>
+    </font>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_1</name>
+    <text>Model:</text>
+    <y>50</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update</name>
+    <pv_name>$(P)$(R)ModelNumber</pv_name>
+    <x>100</x>
+    <y>50</y>
+    <width>300</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_1</name>
+    <pv_name>$(P)$(R)SerialNumber</pv_name>
+    <x>100</x>
+    <y>70</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_2</name>
+    <text>Serial no:</text>
+    <y>70</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_3</name>
+    <text>Firmware ver:</text>
+    <y>90</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_2</name>
+    <pv_name>$(P)$(R)FirmwareVersionMajor</pv_name>
+    <x>100</x>
+    <y>90</y>
+    <width>50</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_3</name>
+    <pv_name>$(P)$(R)FirmwareVersionInterim</pv_name>
+    <x>160</x>
+    <y>90</y>
+    <width>50</width>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_4</name>
+    <pv_name>$(P)$(R)FirmwareVersionMinor</pv_name>
+    <x>220</x>
+    <y>90</y>
+    <width>50</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_4</name>
+    <text>Hardware ver:</text>
+    <y>110</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_5</name>
+    <pv_name>$(P)$(R)HardwareVersion</pv_name>
+    <x>100</x>
+    <y>110</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_5</name>
+    <text>Notes:</text>
+    <y>130</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_6</name>
+    <pv_name>$(P)$(R)Notes</pv_name>
+    <x>100</x>
+    <y>130</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_6</name>
+    <text>Mod state:</text>
+    <y>150</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_7</name>
+    <pv_name>$(P)$(R)ModState</pv_name>
+    <x>100</x>
+    <y>150</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_7</name>
+    <text>Error count:</text>
+    <y>180</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_8</name>
+    <pv_name>$(P)$(R)NumEvents</pv_name>
+    <x>100</x>
+    <y>180</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_8</name>
+    <text>Last error:</text>
+    <y>200</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_9</name>
+    <pv_name>$(P)$(R)LastEvent</pv_name>
+    <x>100</x>
+    <y>200</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_9</name>
+    <text>Error notes:</text>
+    <y>220</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_10</name>
+    <pv_name>$(P)$(R)LastEventNotes</pv_name>
+    <x>100</x>
+    <y>220</y>
+    <width>300</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_10</name>
+    <text>Drive enabled:</text>
+    <y>250</y>
+  </widget>
+  <widget type="checkbox" version="2.0.0">
+    <name>CheckBox</name>
+    <pv_name>$(P)$(R)Ch1:Enabled</pv_name>
+    <label></label>
+    <x>100</x>
+    <y>250</y>
+    <width>20</width>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_11</name>
+    <text>Min velocity:</text>
+    <y>280</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry</name>
+    <pv_name>$(P)$(R)Ch1:MinVelocity</pv_name>
+    <x>100</x>
+    <y>280</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_12</name>
+    <text>Max velocity:</text>
+    <y>300</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_1</name>
+    <pv_name>$(P)$(R)Ch1:MaxVelocity</pv_name>
+    <x>100</x>
+    <y>300</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_14</name>
+    <text>Acceleration:</text>
+    <y>320</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_3</name>
+    <pv_name>$(P)$(R)Ch1:Acceleration</pv_name>
+    <x>100</x>
+    <y>320</y>
+    <width>130</width>
+    <precision>3</precision>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_15</name>
+    <text>Backlash:</text>
+    <y>340</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_4</name>
+    <pv_name>$(P)$(R)Ch1:Backlash</pv_name>
+    <x>100</x>
+    <y>340</y>
+    <width>130</width>
+    <precision>5</precision>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED</name>
+    <pv_name>$(P)$(R)Ch1:StatusForwardLimit</pv_name>
+    <x>260</x>
+    <y>280</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_16</name>
+    <text>Forward limit switch</text>
+    <x>290</x>
+    <y>280</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_1</name>
+    <pv_name>$(P)$(R)Ch1:StatusReverseLimit</pv_name>
+    <x>260</x>
+    <y>300</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_17</name>
+    <text>Reverse limit switch</text>
+    <x>290</x>
+    <y>300</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_2</name>
+    <pv_name>$(P)$(R)Ch1:StatusMovingForward</pv_name>
+    <x>260</x>
+    <y>320</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_18</name>
+    <text>Moving forward</text>
+    <x>290</x>
+    <y>320</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_3</name>
+    <pv_name>$(P)$(R)Ch1:StatusMovingReverse</pv_name>
+    <x>260</x>
+    <y>340</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_19</name>
+    <text>Moving reverse</text>
+    <x>290</x>
+    <y>340</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_4</name>
+    <pv_name>$(P)$(R)Ch1:StatusHoming</pv_name>
+    <x>260</x>
+    <y>370</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_20</name>
+    <text>Homing</text>
+    <x>290</x>
+    <y>370</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_5</name>
+    <pv_name>$(P)$(R)Ch1:StatusHomed</pv_name>
+    <x>260</x>
+    <y>390</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_21</name>
+    <text>Homed</text>
+    <x>290</x>
+    <y>390</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="led" version="2.0.0">
+    <name>LED_6</name>
+    <pv_name>$(P)$(R)Ch1:StatusEnabled</pv_name>
+    <x>260</x>
+    <y>250</y>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_22</name>
+    <text>Motor enabled</text>
+    <x>290</x>
+    <y>250</y>
+    <width>130</width>
+    <vertical_alignment>1</vertical_alignment>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_23</name>
+    <text>Move to:</text>
+    <y>380</y>
+  </widget>
+  <widget type="textentry" version="3.0.0">
+    <name>Text Entry_5</name>
+    <pv_name>$(P)$(R)Ch1:MoveAbsolute</pv_name>
+    <x>100</x>
+    <y>380</y>
+    <width>80</width>
+    <precision>2</precision>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+        <description>Write PV</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)Ch1:MoveStop</pv_name>
+    <text>Stop</text>
+    <x>100</x>
+    <y>430</y>
+    <width>60</width>
+    <height>20</height>
+  </widget>
+  <widget type="action_button" version="3.0.0">
+    <name>Action Button_1</name>
+    <actions>
+      <action type="write_pv">
+        <pv_name>$(pv_name)</pv_name>
+        <value>1</value>
+        <description>Write PV</description>
+      </action>
+    </actions>
+    <pv_name>$(P)$(R)Ch1:MoveHome</pv_name>
+    <text>Home</text>
+    <x>260</x>
+    <y>430</y>
+    <width>60</width>
+    <height>20</height>
+  </widget>
+  <widget type="label" version="2.0.0">
+    <name>Label_24</name>
+    <text>Current pos:</text>
+    <y>400</y>
+  </widget>
+  <widget type="textupdate" version="2.0.0">
+    <name>Text Update_11</name>
+    <pv_name>$(P)$(R)Ch1:CurrentPosition</pv_name>
+    <x>100</x>
+    <y>400</y>
+    <width>80</width>
+    <precision>2</precision>
+  </widget>
+</display>
